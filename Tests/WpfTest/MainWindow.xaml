@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="100" Content="Send!" Click="Button_Click"/>
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Text="Введите e-mail" />
+        <TextBox x:Name="EmailBox" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Margin="0,25,0,0"/>
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" Text ="Введите пароль" TextAlignment="Left" Width="250"/>
+        <PasswordBox x:Name="PasswordBox" VerticalAlignment="Top" HorizontalAlignment="Right" Width="250" Margin="0,25,0,0"/>
     </Grid>
 </Window>
