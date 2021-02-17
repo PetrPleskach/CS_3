@@ -32,13 +32,12 @@ namespace WpfTest
         {
             MailAddress from = new(SenderMailBox.Text);
             MailAddress to = new(RecipientMailBox.Text);
-            MailMessage message = new(from, to);
 
+            using MailMessage message = new(from, to);
             message.Subject = SubjectTextBox.Text;
             message.Body = BodyTextBox.Text;
-           
-            using SmtpClient client = new("smtp.mail.ru", 25);
 
+            using SmtpClient client = new("smtp.mail.ru", 25);
             client.EnableSsl = true;
             client.Credentials = new NetworkCredential { UserName = SenderMailBox.Text, SecurePassword = PasswordBox.SecurePassword };
 
