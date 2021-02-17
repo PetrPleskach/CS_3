@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTest"
-        mc:Ignorable="d"
+        mc:Ignorable="d"        
+        Background="{StaticResource WindowBackgroundBrush}"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="100" Content="Send!" Click="Button_Click"/>
@@ -12,5 +13,5 @@
         <TextBox x:Name="EmailBox" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Margin="0,25,0,0"/>
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" Text ="Введите пароль" TextAlignment="Left" Width="250"/>
         <PasswordBox x:Name="PasswordBox" VerticalAlignment="Top" HorizontalAlignment="Right" Width="250" Margin="0,25,0,0"/>
-    </Grid>
+    </Grid>    
 </Window>
