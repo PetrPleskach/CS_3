@@ -18,6 +18,7 @@
     <Color x:Key="HoverColor">#FF393939</Color>
     <Color x:Key="DefaultColor">#FF9BB1C5</Color>
     <SolidColorBrush x:Key="LightBrush" Color="#FF333333" />
+    <SolidColorBrush x:Key="MouseOverBrush" Color="#FF343434" />
     <SolidColorBrush x:Key="ShadeBrush" Color="#FF434343" />
 
     <Color x:Key="TopGradientSelectColor">#FFFFFFFF</Color>
