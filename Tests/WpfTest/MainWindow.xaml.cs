@@ -30,17 +30,17 @@ namespace WpfTest
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MailAddress from = new(EmailBox.Text, "");
-            MailAddress to = new("pleskach_petr@mail.ru");
+            MailAddress from = new(SenderMailBox.Text);
+            MailAddress to = new(RecipientMailBox.Text);
             MailMessage message = new(from, to);
 
-            message.Subject = "Test";
-            message.Body = "Test message";
-
+            message.Subject = SubjectTextBox.Text;
+            message.Body = BodyTextBox.Text;
+           
             using SmtpClient client = new("smtp.mail.ru", 25);
 
             client.EnableSsl = true;
-            client.Credentials = new NetworkCredential { UserName = EmailBox.Text, SecurePassword = PasswordBox.SecurePassword };
+            client.Credentials = new NetworkCredential { UserName = SenderMailBox.Text, SecurePassword = PasswordBox.SecurePassword };
 
             client.Send(message);
         }
