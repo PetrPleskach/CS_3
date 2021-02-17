@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTest"
+        xmlns:data="clr-namespace:WpfTest.Data"
         mc:Ignorable="d"        
         Background="{StaticResource WindowBackgroundBrush}"        
         Title="MainWindow" Height="450" Width="800">
@@ -17,11 +18,9 @@
         <GroupBox Grid.Column="0" VerticalAlignment="Top" Padding="10" Header="Почтовый ящик для отправки" Margin="10">
             <StackPanel>                
                 <GroupBox HorizontalAlignment="Center" Header="Выберите почтовый сервер">
-                    <ComboBox x:Name="MailServerComboBox" HorizontalAlignment="Center" Width="250" SelectedIndex="0" HorizontalContentAlignment="Center" >
-                        <ComboBoxItem Content="smtp.mail.ru : 25"/>
-                        <ComboBoxItem Content="smtp.yandex.ru : 25"/>
-                        <ComboBoxItem Content="smtp.google.com : 25"/>
-                    </ComboBox>
+                    <ComboBox x:Name="MailServerComboBox" HorizontalAlignment="Center" Width="250" SelectedIndex="0" HorizontalContentAlignment="Center"
+                              ItemsSource="{x:Static data:TestData.Servers}"
+                              DisplayMemberPath="Name"/>
                 </GroupBox>
                 
                 <TextBlock HorizontalAlignment="Center" Text="Введите e-mail" />

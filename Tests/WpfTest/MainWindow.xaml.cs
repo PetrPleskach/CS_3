@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MailSender.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -37,7 +38,8 @@ namespace WpfTest
             message.Subject = SubjectTextBox.Text;
             message.Body = BodyTextBox.Text;
 
-            using SmtpClient client = new("smtp.mail.ru", 25);
+            var selectedServer = (Server)MailServerComboBox.SelectedItem;            
+            using SmtpClient client = new(selectedServer.Adress, selectedServer.Port);
             client.EnableSsl = true;
             client.Credentials = new NetworkCredential { UserName = SenderMailBox.Text, SecurePassword = PasswordBox.SecurePassword };
 
