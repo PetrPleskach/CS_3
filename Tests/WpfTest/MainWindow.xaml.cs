@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static WpfTest.Services.EmailSendServiceClass;
 
 namespace WpfTest
 {
@@ -31,19 +32,20 @@ namespace WpfTest
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MailAddress from = new(SenderMailBox.Text);
-            MailAddress to = new(RecipientMailBox.Text);
-
-            using MailMessage message = new(from, to);
-            message.Subject = SubjectTextBox.Text;
-            message.Body = BodyTextBox.Text;
-
-            var selectedServer = (Server)MailServerComboBox.SelectedItem;            
-            using SmtpClient client = new(selectedServer.Adress, selectedServer.Port);
-            client.EnableSsl = true;
-            client.Credentials = new NetworkCredential { UserName = SenderMailBox.Text, SecurePassword = PasswordBox.SecurePassword };
-
-            client.Send(message);
+            try
+            {
+                using var message = CreateMessage(SenderMailBox.Text, RecipientMailBox.Text, SubjectTextBox.Text, BodyTextBox.Text);
+                MailSend(MailServerComboBox.SelectedItem as Server, message, PasswordBox.SecurePassword);
+            }
+            catch (SmtpException exp)
+            {
+                MessageBox.Show($"{SenderMailBox.Text} - неверный пароль или почтового ящика не существует\n{exp.Message}", "Ошибка авторизации", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
     }
 }

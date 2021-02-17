@@ -1,6 +1,6 @@
 ﻿namespace MailSender.Models
 {
-    class Server
+    public class Server
     {
         public string Name { get; set; }
         public string Adress { get; set; }
