@@ -8,18 +8,70 @@
         Title="Рассыльщик" Height="450" Width="800">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Файл"/>
-            
-            <MenuItem Header="Помощь"/>
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выход"/>
+            </MenuItem>
+
+            <MenuItem Header="Справка">
+                <MenuItem Header="Помощь"/>
+                <MenuItem Header="О программе"/>
+            </MenuItem>
         </Menu>
         
         <StatusBar DockPanel.Dock="Bottom">
-            <ProgressBar Value="50" Width="250" Height="20"/>
+            <StatusBarItem DockPanel.Dock ="Right">
+                <ResizeGrip/>                
+            </StatusBarItem>
+
+            <StatusBarItem>
+                <TextBlock Text="Готов!"/>
+            </StatusBarItem>
         </StatusBar>
         
-        <TabPanel>
+        <TabControl>
             <TabItem Header="Списки">
+                <DockPanel>
+                    
+                    <ToolBarTray DockPanel.Dock="Top">                        
+                        <ToolBar>
+                            <TextBlock Text="Почтовые сервера" MinWidth="110"/>
+                            <ComboBox SelectedItem="0" MinWidth="150"/>
+                            <Button Width="20" Content="+"/>
+                            <Button Width="20" Content="E"/>
+                            <Button Width="20" Content="-"/>
+                        </ToolBar>
 
+                        <ToolBar Band="1" BandIndex="0">
+                            <TextBlock Text="Отправители" MinWidth="110"/>
+                            <ComboBox SelectedItem="0" MinWidth="150"/>
+                            <Button Width="20" Content="+"/>
+                            <Button Width="20" Content="E"/>
+                            <Button Width="20" Content="-"/>
+                        </ToolBar>
+
+                        <ToolBar>
+                            <Button Content="Перейти в планировщик" MinWidth="200"/>
+                        </ToolBar>
+
+                        <ToolBar Band="1" Header="Получатели">
+                            <Button Width="20" Content="+"/>
+                            <Button Width="20" Content="E"/>
+                            <Button Width="20" Content="-"/>
+                        </ToolBar>                        
+                    </ToolBarTray>
+
+                    <GroupBox Header="Список получателей">
+                        <DataGrid AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" MinWidth="50"/>
+                                <DataGridTextColumn Header="Имя" MinWidth="200"/>
+                                <DataGridTextColumn Header="Адрес" MinWidth="150"/>
+                                <DataGridTextColumn Header="Комментарий" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                    
+                </DockPanel>
             </TabItem>
                 
             <TabItem Header="Расписание">
@@ -33,6 +85,6 @@
             <TabItem Header="Статистика">
 
             </TabItem>
-        </TabPanel>        
+        </TabControl>        
     </DockPanel>
 </Window>
