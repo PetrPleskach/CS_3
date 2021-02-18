@@ -32,7 +32,11 @@
             <TabItem Header="Списки">
                 <DockPanel>
                     
-                    <ToolBarTray DockPanel.Dock="Top">                        
+                    <ToolBarTray DockPanel.Dock="Top">
+                        <ToolBarTray.Resources>
+                            
+                        </ToolBarTray.Resources>
+                        
                         <ToolBar>
                             <TextBlock Text="Почтовые сервера" MinWidth="110"/>
                             <ComboBox SelectedItem="0" MinWidth="150"/>
@@ -74,8 +78,39 @@
                 </DockPanel>
             </TabItem>
                 
-            <TabItem Header="Расписание">
-                    
+            <TabItem Header="Планировщик">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="200" Width="*"/>
+                        <ColumnDefinition MinWidth="300" Width="3*"/>                        
+                    </Grid.ColumnDefinitions>                    
+
+                    <GroupBox Grid.Column="0" Header="Управление">
+                        <StackPanel>
+                            
+                            <TextBlock Text="Дата" HorizontalAlignment="Center"/>
+                            <Calendar/>
+
+                            <TextBlock Text="Время" HorizontalAlignment="Center"/>
+                            <TextBox/>
+
+                            <StackPanel>
+                                <Button Content="Запланировать"/>
+                                <Button Content="Отправить немедленно"/>
+                            </StackPanel>
+                            
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Grid.Column="1" Header="Задания">
+                        <ListBox>
+                            
+                        </ListBox>
+                    </GroupBox>
+
+                    <GridSplitter Width="3" Background="Transparent" HorizontalAlignment="Right"/>
+
+                </Grid>                    
             </TabItem>
                 
             <TabItem Header="Письма">
