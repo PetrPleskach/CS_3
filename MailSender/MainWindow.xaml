@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MailSender"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
         Title="Рассыльщик" Height="450" Width="800">
     <DockPanel>
@@ -34,33 +35,52 @@
                     
                     <ToolBarTray DockPanel.Dock="Top">
                         <ToolBarTray.Resources>
-                            
+                            <Style TargetType="Button" x:Key="addBtn">
+                                <Setter Property="fa:Awesome.Content" Value="Solid_PlusCircle"/>
+                                <Setter Property="Foreground" Value="DarkGreen"/>
+                                <Setter Property="ToolTip" Value="Добавить"/>
+                                <Setter Property="FontSize" Value="16"/>
+                            </Style>
+
+                            <Style TargetType="Button" x:Key="editBtn">
+                                <Setter Property="fa:Awesome.Content" Value="Regular_Edit"/>
+                                <Setter Property="Foreground" Value="DarkGoldenrod"/>
+                                <Setter Property="ToolTip" Value="Редактировать"/>
+                                <Setter Property="FontSize" Value="16"/>
+                            </Style>
+
+                            <Style TargetType="Button" x:Key="delBtn">
+                                <Setter Property="fa:Awesome.Content" Value="Regular_TrashAlt"/>
+                                <Setter Property="Foreground" Value="DarkRed"/>
+                                <Setter Property="ToolTip" Value="Удалить"/>
+                                <Setter Property="FontSize" Value="16"/>
+                            </Style>
                         </ToolBarTray.Resources>
                         
                         <ToolBar>
                             <TextBlock Text="Почтовые сервера" MinWidth="110"/>
                             <ComboBox SelectedItem="0" MinWidth="150"/>
-                            <Button Width="20" Content="+"/>
-                            <Button Width="20" Content="E"/>
-                            <Button Width="20" Content="-"/>
+                            <Button Style="{StaticResource addBtn}"/>
+                            <Button Style="{StaticResource editBtn}"/>
+                            <Button Style="{StaticResource delBtn}"/>
                         </ToolBar>
 
                         <ToolBar Band="1" BandIndex="0">
                             <TextBlock Text="Отправители" MinWidth="110"/>
                             <ComboBox SelectedItem="0" MinWidth="150"/>
-                            <Button Width="20" Content="+"/>
-                            <Button Width="20" Content="E"/>
-                            <Button Width="20" Content="-"/>
+                            <Button Style="{StaticResource addBtn}"/>
+                            <Button Style="{StaticResource editBtn}"/>
+                            <Button Style="{StaticResource delBtn}"/>
                         </ToolBar>
 
-                        <ToolBar>
-                            <Button Content="Перейти в планировщик" MinWidth="200"/>
+                        <ToolBar Header="Планировщик">
+                            <Button Content="Перейти в планировщик" MinWidth="200" FontWeight="Bold" FontStyle="Italic" Foreground="DarkBlue"/>
                         </ToolBar>
 
                         <ToolBar Band="1" Header="Получатели">
-                            <Button Width="20" Content="+"/>
-                            <Button Width="20" Content="E"/>
-                            <Button Width="20" Content="-"/>
+                            <Button Style="{StaticResource addBtn}"/>
+                            <Button Style="{StaticResource editBtn}"/>
+                            <Button Style="{StaticResource delBtn}"/>
                         </ToolBar>                        
                     </ToolBarTray>
 
