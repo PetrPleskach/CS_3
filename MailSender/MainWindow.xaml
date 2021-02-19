@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MailSender"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:data="clr-namespace:MailSender.Data"
+        xmlns:models="clr-namespace:MailSender.Models"
         mc:Ignorable="d"
         Title="Рассыльщик" Height="450" Width="800">
     <DockPanel>
@@ -59,7 +61,18 @@
                         
                         <ToolBar>
                             <TextBlock Text="Почтовые сервера" MinWidth="110"/>
-                            <ComboBox SelectedItem="0" MinWidth="150"/>
+                            <ComboBox SelectedIndex="0" MinWidth="150" ItemsSource="{x:Static data:TestData.Servers}"
+                                      ToolTip="{Binding Path=SelectedItem.Adress, RelativeSource={RelativeSource Self}}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="models:Server">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}"/>
+                                            <TextBlock Text=" Порт: "/>
+                                            <TextBlock Text="{Binding Port}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                             <Button Style="{StaticResource addBtn}"/>
                             <Button Style="{StaticResource editBtn}"/>
                             <Button Style="{StaticResource delBtn}"/>
@@ -67,7 +80,8 @@
 
                         <ToolBar Band="1" BandIndex="0">
                             <TextBlock Text="Отправители" MinWidth="110"/>
-                            <ComboBox SelectedItem="0" MinWidth="150"/>
+                            <ComboBox SelectedIndex="0" MinWidth="150" ItemsSource="{x:Static data:TestData.Senders}" DisplayMemberPath="Name"
+                                      ToolTip="{Binding Path=SelectedItem.Adress, RelativeSource={RelativeSource Self}}"/>
                             <Button Style="{StaticResource addBtn}"/>
                             <Button Style="{StaticResource editBtn}"/>
                             <Button Style="{StaticResource delBtn}"/>
