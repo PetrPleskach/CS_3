@@ -8,7 +8,9 @@
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:models="clr-namespace:MailSender.Models"
         mc:Ignorable="d"
-        Title="Рассыльщик" Height="450" Width="800">
+        Title="Рассыльщик" Height="450" Width="800"
+        ResizeMode="CanResizeWithGrip">
+
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
@@ -20,28 +22,28 @@
                 <MenuItem Header="О программе"/>
             </MenuItem>
         </Menu>
-        
+
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem DockPanel.Dock ="Right">
-                <ResizeGrip/>                
+                <ResizeGrip/>
             </StatusBarItem>
 
             <StatusBarItem>
                 <TextBlock Text="Готов!"/>
             </StatusBarItem>
         </StatusBar>
-        
+
         <TabControl>
             <TabItem Header="Списки">
                 <DockPanel>
-                    
+
                     <ToolBarTray DockPanel.Dock="Top">
                         <ToolBarTray.Resources>
-                            <Style TargetType="Button" x:Key="addBtn">                                
-                                <Setter Property="fa:Awesome.Content" Value="Solid_PlusCircle"/>                                
-                                <Setter Property="Foreground" Value="DarkGreen"/>                                
-                                <Setter Property="ToolTip" Value="Добавить"/>                                
-                                <Setter Property="FontSize" Value="16"/>                                
+                            <Style TargetType="Button" x:Key="addBtn">
+                                <Setter Property="fa:Awesome.Content" Value="Solid_PlusCircle"/>
+                                <Setter Property="Foreground" Value="DarkGreen"/>
+                                <Setter Property="ToolTip" Value="Добавить"/>
+                                <Setter Property="FontSize" Value="16"/>
                             </Style>
 
                             <Style TargetType="Button" x:Key="editBtn">
@@ -58,17 +60,17 @@
                                 <Setter Property="FontSize" Value="16"/>
                             </Style>
                         </ToolBarTray.Resources>
-                        
+
                         <ToolBar>
-                            <TextBlock 
-                                Text="Почтовые сервера" MinWidth="110"/>
-                            
-                            <ComboBox 
-                                SelectedIndex="0"
-                                MinWidth="150"
-                                ItemsSource="{x:Static data:TestData.Servers}" 
-                                ToolTip="{Binding Path=SelectedItem.Adress, RelativeSource={RelativeSource Self}}">
-                                
+                            <TextBlock Text="Почтовые сервера"
+                                       MinWidth="110"
+                                       VerticalAlignment="Center"/>
+
+                            <ComboBox SelectedIndex="0" 
+                                      MinWidth="150"
+                                      ItemsSource="{x:Static data:TestData.Servers}" 
+                                      ToolTip="{Binding Path=SelectedItem.Adress, RelativeSource={RelativeSource Self}}">
+
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate DataType="models:Server">
                                         <StackPanel Orientation="Horizontal">
@@ -79,7 +81,7 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                            
+
                             <Button Style="{StaticResource addBtn}"/>
                             <Button Style="{StaticResource editBtn}"/>
                             <Button Style="{StaticResource delBtn}"/>
@@ -87,36 +89,49 @@
 
                         <ToolBar Band="1"
                                  BandIndex="0">
-                            
-                            <TextBlock Text="Отправители" MinWidth="110"/>
-                            
+
+                            <TextBlock Text="Отправители"
+                                       MinWidth="110"
+                                       VerticalAlignment="Center"/>
+
                             <ComboBox SelectedIndex="0"
                                       MinWidth="150"
                                       ItemsSource="{x:Static data:TestData.Senders}"
                                       DisplayMemberPath="Name"
                                       ToolTip="{Binding Path=SelectedItem.Adress, RelativeSource={RelativeSource Self}}"/>
-                            
+
                             <Button Style="{StaticResource addBtn}"/>
                             <Button Style="{StaticResource editBtn}"/>
                             <Button Style="{StaticResource delBtn}"/>
                         </ToolBar>
 
                         <ToolBar Header="Планировщик">
-                            <Button Content="Перейти в планировщик"
-                                    MinWidth="200"
-                                    FontWeight="Bold"
-                                    FontStyle="Italic"
-                                    Foreground="DarkBlue"/>
+                            <Button MinWidth="150">
+                                <DockPanel>
+                                    <TextBlock Text="Перейти в планировщик"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Right"                                               
+                                               TextAlignment="Right"                                               
+                                               FontWeight="Bold"
+                                               FontStyle="Italic"
+                                               Foreground="DarkBlue"/>
+
+                                    <Label fa:Awesome.Content="Regular_Clock"
+                                           Foreground="DodgerBlue"
+                                           FontSize="14"/>
+                                </DockPanel>
+                            </Button>
                         </ToolBar>
 
                         <ToolBar Band="1" Header="Получатели">
                             <Button Style="{StaticResource addBtn}"/>
                             <Button Style="{StaticResource editBtn}"/>
                             <Button Style="{StaticResource delBtn}"/>
-                        </ToolBar>                        
+                        </ToolBar>
                     </ToolBarTray>
- 
+
                     <GroupBox Header="Список получателей">
+                        
                         <DataGrid VerticalGridLinesBrush="Gray" 
                                   GridLinesVisibility="Vertical"
                                   HeadersVisibility="Column"
@@ -124,38 +139,38 @@
                                   AutoGenerateColumns="False"
                                   IsReadOnly="True"
                                   ItemsSource="{x:Static data:TestData.Recipients}">
-                            
+
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" MinWidth="50"/>
-                                
+
                                 <DataGridTextColumn Header="Имя" MinWidth="200"
                                                     Binding="{Binding Path=Name}"/>
-                                
+
                                 <DataGridTextColumn Header="Адрес" MinWidth="150"
                                                     Binding="{Binding Path=Adress}"/>
-                                
+
                                 <DataGridTextColumn Header="Комментарий" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
-                    
-                    
+
+
                 </DockPanel>
             </TabItem>
-                
+
             <TabItem Header="Планировщик">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition MinWidth="200"
                                           Width="*"/>
                         <ColumnDefinition MinWidth="300"
-                                          Width="3*"/>                        
-                    </Grid.ColumnDefinitions>                    
+                                          Width="3*"/>
+                    </Grid.ColumnDefinitions>
 
                     <GroupBox Grid.Column="0"
                               Header="Управление">
                         <StackPanel>
-                            
+
                             <TextBlock Text="Дата"
                                        HorizontalAlignment="Center"/>
                             <Calendar/>
@@ -168,14 +183,14 @@
                                 <Button Content="Запланировать"/>
                                 <Button Content="Отправить немедленно"/>
                             </StackPanel>
-                            
+
                         </StackPanel>
                     </GroupBox>
 
                     <GroupBox Grid.Column="1"
                               Header="Задания">
                         <ListBox>
-                            
+
                         </ListBox>
                     </GroupBox>
 
@@ -183,26 +198,26 @@
                                   Background="Transparent"
                                   HorizontalAlignment="Right"/>
 
-                </Grid>                    
+                </Grid>
             </TabItem>
-                
+
             <TabItem Header="Письма">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" MinWidth="150"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    
+
                     <GroupBox Header="Письма"
                               Grid.Column="0"
                               Grid.Row="0"
                               Grid.RowSpan="2" >
-                        
+
                         <ListBox>
                             <ListBoxItem Content="message1"/>
                             <ListBoxItem Content="message2"/>
@@ -223,10 +238,10 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-                
-            <TabItem Header="Статистика">
 
+            <TabItem Header="Статистика">
+                                
             </TabItem>
-        </TabControl>        
+        </TabControl>
     </DockPanel>
 </Window>
