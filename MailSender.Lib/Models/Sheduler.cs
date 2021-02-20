@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MailSender.Models
 {
-    class Sheduler
+    public class Sheduler
     {
         public DateTime Time { get; set; }
         public Server Server { get; set; }

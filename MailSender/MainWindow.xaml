@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MailSender"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:data="clr-namespace:MailSender.Data"
-        xmlns:models="clr-namespace:MailSender.Models"
+        xmlns:models="clr-namespace:MailSender.Models;assembly=MailSender.lib"
         mc:Ignorable="d"
         Title="Рассыльщик" Height="450" Width="800"
         ResizeMode="CanResizeWithGrip">
