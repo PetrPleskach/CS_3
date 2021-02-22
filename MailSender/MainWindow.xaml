@@ -66,7 +66,8 @@
                                        MinWidth="110"
                                        VerticalAlignment="Center"/>
 
-                            <ComboBox SelectedIndex="0" 
+                            <ComboBox x:Name="ServerBox"
+                                      SelectedIndex="0" 
                                       MinWidth="150"
                                       ItemsSource="{x:Static data:TestData.Servers}" 
                                       ToolTip="{Binding Path=SelectedItem.Adress, RelativeSource={RelativeSource Self}}">
@@ -94,7 +95,8 @@
                                        MinWidth="110"
                                        VerticalAlignment="Center"/>
 
-                            <ComboBox SelectedIndex="0"
+                            <ComboBox x:Name="SenderBox"
+                                      SelectedIndex="0"
                                       MinWidth="150"
                                       ItemsSource="{x:Static data:TestData.Senders}"
                                       DisplayMemberPath="Name"
@@ -218,23 +220,23 @@
                               Grid.Row="0"
                               Grid.RowSpan="2" >
 
-                        <ListBox>
-                            <ListBoxItem Content="message1"/>
-                            <ListBoxItem Content="message2"/>
-                            <ListBoxItem Content="message3"/>
-                        </ListBox>
+                        <ListBox x:Name="MessageList"
+                                 ItemsSource="{x:Static data:TestData.Messages}"
+                                 DisplayMemberPath="Subject"
+                                 SelectedIndex="0"/>
                     </GroupBox>
 
                     <GroupBox Header="Тема письма"
                               Grid.Column="1"
                               Grid.Row="0">
-                        <TextBox/>
+                        <TextBox Text="{Binding SelectedItem.Subject, ElementName=MessageList}"/>
                     </GroupBox>
 
                     <GroupBox Header="Текст письма"
                               Grid.Column="1"
                               Grid.Row="1">
-                        <TextBox AcceptsReturn="True" AcceptsTab="True"/>
+                        <TextBox AcceptsReturn="True" AcceptsTab="True"
+                                 Text="{Binding SelectedItem.Body, ElementName=MessageList}"/>
                     </GroupBox>
                 </Grid>
             </TabItem>
