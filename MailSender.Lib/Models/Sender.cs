@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace MailSender.Models
 {
-    public class Sender
+    public class Sender : CommunicationObject
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Adress { get; set; }
+
     }
 }

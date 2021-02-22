@@ -9,5 +9,6 @@
         public string Login { get; set; }
         public string Password { get; set; }
         public bool useSSL { get; set; } = true;
+        public string Description { get; set; }
     }
 }
