@@ -26,6 +26,8 @@ namespace MailSender
     {
         public MainWindow() => InitializeComponent();
 
+
+        #region ServerButtons
         private void onAddServerButtonClick(object sender, RoutedEventArgs e)
         {
             if (!ServerEditDialogWindow.Create(
@@ -61,10 +63,8 @@ namespace MailSender
             var port = server.Port;
             var useSsl = server.UseSSL;
             var description = server.Description;
-            //var login = server.Login;
-            //var password = server.Password;
 
-            if (!ServerEditDialogWindow.ShowDialog("Редактировиние сервера",
+            if (!ServerEditDialogWindow.ShowDialog("Редактирование сервера",
                 ref name,
                 ref adress,
                 ref port,
@@ -91,6 +91,56 @@ namespace MailSender
             ServerBox.ItemsSource = TestData.Servers;
             ServerBox.SelectedItem = TestData.Servers.FirstOrDefault();
         }
+        #endregion
+
+        #region RecipientButtons
+
+        private void onAddRecipientButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!RecipientEditDialogWindow.Create(out var name, out var address, out var description)) return;
+
+            var recipient = new Recipient
+            {
+                Id = TestData.Recipients.DefaultIfEmpty().Max(r => r.Id),
+                Name = name,
+                Adress = address,
+                Description = description
+            };
+
+            TestData.Recipients.Add(recipient);
+            RecipientList.ItemsSource = null;
+            RecipientList.ItemsSource = TestData.Recipients;
+        }
+
+        private void OnEditRecipientButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!(RecipientList.SelectedItem is Recipient recipient)) return;
+
+            var name = recipient.Name;
+            var address = recipient.Adress;
+            var description = recipient.Description;
+
+            if (!RecipientEditDialogWindow.ShowDialog("Редактирование получателя", ref name, ref address, ref description)) return;
+
+            recipient.Name = name;
+            recipient.Adress = address;
+            recipient.Description = description;
+
+            RecipientList.ItemsSource = null;
+            RecipientList.ItemsSource = TestData.Recipients;
+        }
+
+        private void OnDeleteRecipientButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!(RecipientList.SelectedItem is Recipient recipient)) return;
+
+            TestData.Recipients.Remove(recipient);
+
+            RecipientList.ItemsSource = null;
+            RecipientList.ItemsSource = TestData.Recipients;
+        }
+
+        #endregion
 
         private void OnSendNowButtonClick(object sender, RoutedEventArgs e)
         {
@@ -114,6 +164,10 @@ namespace MailSender
             {
                 MessageBox.Show("Ошибка при отправке почты", "Отправка почты", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+
+
+
         }
     }
 }

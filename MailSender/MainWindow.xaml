@@ -129,9 +129,9 @@
                         </ToolBar>
 
                         <ToolBar Band="1" Header="Получатели">
-                            <Button Style="{StaticResource addBtn}"/>
-                            <Button Style="{StaticResource editBtn}"/>
-                            <Button Style="{StaticResource delBtn}"/>
+                            <Button Style="{StaticResource addBtn}"  Click="onAddRecipientButtonClick"/>
+                            <Button Style="{StaticResource editBtn}" Click="OnEditRecipientButtonClick"/>
+                            <Button Style="{StaticResource delBtn}" Click="OnDeleteRecipientButtonClick"/>
                         </ToolBar>
                     </ToolBarTray>
 
