@@ -33,7 +33,9 @@ namespace MailSender
                 out var adress,
                 out var port,
                 out var useSSl,
-                out var descraption)) return;
+                out var descraption,
+                out var login,
+                out var password)) return;
 
             var server = new Server
             {
@@ -43,6 +45,8 @@ namespace MailSender
                 Port = port,
                 UseSSL = useSSl,
                 Description = descraption,
+                Login = login,
+                Password = password
             };
 
             TestData.Servers.Add(server);
@@ -61,21 +65,25 @@ namespace MailSender
             var port = server.Port;
             var useSsl = server.UseSSL;
             var description = server.Description;
-            //var login = server.Login;
-            //var password = server.Password;
+            var login = server.Login;
+            var password = server.Password;
 
             if (!ServerEditDialogWindow.ShowDialog("Редактировиние сервера",
                 ref name,
                 ref adress,
                 ref port,
                 ref useSsl,
-                ref description)) return;
+                ref description,
+                ref login,
+                ref password)) return;
 
             server.Name = name;
             server.Adress = adress;
             server.Port = port;
             server.UseSSL = useSsl;
             server.Description = description;
+            server.Login = login;
+            server.Password = password;
 
             ServerBox.ItemsSource = null;
             ServerBox.ItemsSource = TestData.Servers;
@@ -99,7 +107,7 @@ namespace MailSender
             if (!(ServerBox.SelectedItem is Server server)) return;
             if (!(MessageList.SelectedItem is Message message)) return;
 
-            var mailSender = new EmailSendService(server.Adress, server.Port, server.UseSSL, sen.Adress, sen.Password);
+            var mailSender = new EmailSendService(server.Adress, server.Port, server.UseSSL, server.Login, server.Password);
 
             try
             {
