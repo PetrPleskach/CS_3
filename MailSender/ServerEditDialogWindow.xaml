@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MailSender"
         mc:Ignorable="d"
-        Title="ServerEditDialogWindow" Height="300" Width="300" WindowStartupLocation="CenterOwner">
+        Title="ServerEditDialogWindow" Height="250" Width="300" WindowStartupLocation="CenterOwner">
     
         <DockPanel Margin="5">
             <!--#region Resoureces-->
@@ -47,17 +47,7 @@
                         <TextBox Name="ServerAddress"/>
                     </GroupBox>
                 </DockPanel>
-            </Border>
-            
-            <UniformGrid DockPanel.Dock="Top" Rows="1">
-                <GroupBox Header="Логин">
-                    <TextBox Name="Login"/>
-                </GroupBox>
-                
-                <GroupBox Header="Пароль">
-                    <PasswordBox Name="Password"/>
-                </GroupBox>
-            </UniformGrid>
+            </Border> 
             
             <GroupBox Header="Описание">
                 <TextBox Name="ServerDescription"/>
