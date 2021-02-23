@@ -11,7 +11,7 @@
         Title="Рассыльщик" Height="450" Width="800"
         ResizeMode="CanResizeWithGrip">
 
-    <DockPanel>
+    <DockPanel>        
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
                 <MenuItem Header="Выход"/>
@@ -23,7 +23,7 @@
             </MenuItem>
         </Menu>
 
-        <StatusBar DockPanel.Dock="Bottom">
+        <StatusBar DockPanel.Dock="Bottom">            
             <StatusBarItem DockPanel.Dock ="Right">
                 <ResizeGrip/>
             </StatusBarItem>
@@ -34,6 +34,8 @@
         </StatusBar>
 
         <TabControl>
+            
+            <!--#region Списки-->
             <TabItem Header="Списки">
                 <DockPanel>
 
@@ -83,9 +85,9 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
 
-                            <Button Style="{StaticResource addBtn}"/>
-                            <Button Style="{StaticResource editBtn}"/>
-                            <Button Style="{StaticResource delBtn}"/>
+                            <Button Style="{StaticResource addBtn}" Click="onAddServerButtonClick"/>
+                            <Button Style="{StaticResource editBtn}" Click="OnEditServerButtonClick"/>
+                            <Button Style="{StaticResource delBtn}" Click="OnDeleteServerButtonClick"/>
                         </ToolBar>
 
                         <ToolBar Band="1"
@@ -143,7 +145,8 @@
                                   ItemsSource="{x:Static data:TestData.Recipients}">
 
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" MinWidth="50"/>
+                                <DataGridTextColumn Header="ID" MaxWidth="70"
+                                                    Binding="{Binding Path=Id}"/>
 
                                 <DataGridTextColumn Header="Имя" MinWidth="200"
                                                     Binding="{Binding Path=Name}"/>
@@ -151,7 +154,8 @@
                                 <DataGridTextColumn Header="Адрес" MinWidth="150"
                                                     Binding="{Binding Path=Adress}"/>
 
-                                <DataGridTextColumn Header="Комментарий" Width="*"/>
+                                <DataGridTextColumn Header="Комментарий" Width="*"
+                                                    Binding="{Binding Path=Description}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
@@ -159,7 +163,9 @@
 
                 </DockPanel>
             </TabItem>
+            <!--#endregion-->
 
+            <!--#region Планировщик-->
             <TabItem Header="Планировщик">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -202,7 +208,9 @@
 
                 </Grid>
             </TabItem>
+            <!--#endregion-->
 
+            <!--#region Письма-->
             <TabItem Header="Письма">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -240,7 +248,9 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
+            <!--#endregion-->
 
+            <!--#region Статистика-->
             <TabItem Header="Статистика">
                 <Border Margin="5" Padding="12" BorderThickness="2" BorderBrush="Gray" CornerRadius="5">
                     
@@ -276,8 +286,10 @@
                         <TextBlock Grid.Column="0" Grid.Row="2" Text="Всего получателей:"/>
                         <TextBlock Grid.Column="1" Grid.Row="2" Text="0"/>
                     </Grid>
-                </Border>
+                </Border>                
             </TabItem>
+            <!--#endregion-->
+            
         </TabControl>
     </DockPanel>
 </Window>
