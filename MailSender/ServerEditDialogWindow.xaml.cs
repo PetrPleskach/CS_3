@@ -34,7 +34,7 @@ namespace MailSender
         }
 
         public static bool ShowDialog(string title, ref string name, ref string adress, ref int port,
-            ref bool useSSl, ref string description, ref string login, ref string password)
+            ref bool useSSl, ref string description)
         {
             var window = new ServerEditDialogWindow
             {
@@ -43,8 +43,6 @@ namespace MailSender
                 ServerAddress = { Text = adress },
                 ServerPort = { Text = port.ToString() },
                 ServerSSL = { IsChecked = useSSl },
-                Login = { Text = login },
-                Password = { Password = password },
                 ServerDescription = { Text = description },
 
                 Owner = Application.Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsActive)
@@ -55,8 +53,6 @@ namespace MailSender
             name = window.ServerName.Text;
             adress = window.ServerAddress.Text;
             port = int.Parse(window.ServerPort.Text);
-            login = window.Login.Text;
-            password = window.Password.Password;
             description = window.ServerDescription.Text;
             useSSl = (bool)window.ServerSSL.IsChecked;
 
@@ -68,19 +64,15 @@ namespace MailSender
             out string adress,
             out int port,
             out bool useSSL,
-            out string description,
-            out string login,
-            out string password)
+            out string description)
         {
             name = null;
             adress = null;
             port = 25;
             useSSL = true;
             description = null;
-            login = null;
-            password = null;
 
-            return ShowDialog("Добавить новый сервер", ref name, ref adress, ref port, ref useSSL, ref description, ref login, ref password);
+            return ShowDialog("Добавить новый сервер", ref name, ref adress, ref port, ref useSSL, ref description);
         }
     }
 }

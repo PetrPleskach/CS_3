@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MailSender"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:models="clr-namespace:MailSender.Models;assembly=MailSender.lib"
         mc:Ignorable="d"
@@ -186,11 +187,36 @@
 
                             <TextBlock Text="Время"
                                        HorizontalAlignment="Center"/>
-                            <TextBox/>
+                            <tk:TimePicker/>
 
                             <StackPanel>
-                                <Button Content="Запланировать"/>
-                                <Button Content="Отправить немедленно" Click="OnSendNowButtonClick"/>
+                                
+                                <StackPanel.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                                        <Setter Property="TextAlignment" Value="Right"/>
+                                    </Style>
+
+                                    <Style TargetType="Label">
+                                        <Setter Property="Foreground" Value="DodgerBlue"/>
+                                        <Setter Property="FontSize" Value="14"/>
+                                    </Style>
+                                </StackPanel.Resources>
+                                
+                                <Button>
+                                    <DockPanel>
+                                        <TextBlock Text="Запланировать"/>                                        
+                                        <Label fa:Awesome.Content="Regular_Clock"/>
+                                    </DockPanel>
+                                </Button>
+                                
+                                <Button Click="OnSendNowButtonClick">
+                                    <DockPanel>
+                                        <TextBlock Text="Отправить сейчас"/>
+                                        <Label fa:Awesome.Content="Regular_PaperPlane"/>
+                                    </DockPanel>
+                                </Button>
                             </StackPanel>
 
                         </StackPanel>
