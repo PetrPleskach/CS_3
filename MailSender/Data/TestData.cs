@@ -14,15 +14,14 @@ namespace MailSender.Data
             {
                 Name = $"Name - {i}",
                 Adress = $"Adress - {i}",
-                Login = $"Login - {i}",
-                Password = $"Password - {i}"
             }).ToList();
 
         public static IList<Sender> Senders { get; } = Enumerable.Range(1, 10)
             .Select(i => new Sender
             {
                 Name = $"Sender - {i}",
-                Adress = $"sender_{i}@server.ru"
+                Adress = $"sender_{i}@server.ru",
+                Password =$"senderPass{i}"
             }).ToList();
 
         public static IList<Recipient> Recipients { get; } = Enumerable.Range(1, 10)
