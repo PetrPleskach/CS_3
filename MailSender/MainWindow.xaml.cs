@@ -1,7 +1,9 @@
 ﻿using MailSender.Data;
 using MailSender.Models;
+using MailSender.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -96,6 +98,30 @@ namespace MailSender
             ServerBox.ItemsSource = null;
             ServerBox.ItemsSource = TestData.Servers;
             ServerBox.SelectedItem = TestData.Servers.FirstOrDefault();
+        }
+
+        private void OnSendNowButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!(SenderBox.SelectedItem is Sender sen)) return;
+            if (!(RecipientList.SelectedItem is Recipient recipient)) return;
+            if (!(ServerBox.SelectedItem is Server server)) return;
+            if (!(MessageList.SelectedItem is Message message)) return;
+
+            var mailSender = new EmailSendService(server.Adress, server.Port, server.UseSSL, server.Login, server.Password);
+
+            try
+            {
+                var timer = Stopwatch.StartNew();
+                mailSender.Send(sen.Adress, recipient.Adress, message.Subject, message.Body);
+                timer.Stop();
+
+                var elapsed = timer.Elapsed.TotalSeconds;
+                MessageBox.Show($"Почта успешно отправлена за {elapsed:0.##}сек.", "Отправка почты", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка при отправке почты", "Отправка почты", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

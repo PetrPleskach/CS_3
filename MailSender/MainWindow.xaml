@@ -135,8 +135,9 @@
                     </ToolBarTray>
 
                     <GroupBox Header="Список получателей">
-                        
-                        <DataGrid VerticalGridLinesBrush="Gray" 
+
+                        <DataGrid x:Name="RecipientList"
+                                  VerticalGridLinesBrush="Gray" 
                                   GridLinesVisibility="Vertical"
                                   HeadersVisibility="Column"
                                   AlternatingRowBackground="LightGray" 
@@ -189,7 +190,7 @@
 
                             <StackPanel>
                                 <Button Content="Запланировать"/>
-                                <Button Content="Отправить немедленно"/>
+                                <Button Content="Отправить немедленно" Click="OnSendNowButtonClick"/>
                             </StackPanel>
 
                         </StackPanel>

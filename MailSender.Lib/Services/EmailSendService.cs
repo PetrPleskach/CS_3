@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MailSender.Services
 {
-    class EmailSendService
+    public class EmailSendService
     {
         private readonly string _Address;
         private readonly int _Port;
