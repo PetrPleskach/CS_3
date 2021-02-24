@@ -8,9 +8,13 @@
         xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:models="clr-namespace:MailSender.Models;assembly=MailSender.lib"
+        xmlns:vm="clr-namespace:MailSender.ViewModels"
         mc:Ignorable="d"
         Title="Рассыльщик" Height="450" Width="800"
         ResizeMode="CanResizeWithGrip">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
 
     <DockPanel>        
         <Menu DockPanel.Dock="Top">
@@ -311,7 +315,7 @@
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="Всего отправителей:"/>
                         <TextBlock Grid.Column="1" Grid.Row="1" Text="0"/>
                         <TextBlock Grid.Column="0" Grid.Row="2" Text="Всего получателей:"/>
-                        <TextBlock Grid.Column="1" Grid.Row="2" Text="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="2" Text="0"/>                        
                     </Grid>
                 </Border>                
             </TabItem>
