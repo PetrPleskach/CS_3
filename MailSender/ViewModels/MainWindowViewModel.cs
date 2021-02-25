@@ -1,4 +1,5 @@
-﻿using MailSender.ViewModels.Base;
+﻿using MailSender.Commands;
+using MailSender.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
