@@ -9,6 +9,7 @@ using MailSender.Models;
 
 namespace MailSender.Data
 {
+    [Serializable]
     public class TestData
     {
         public IList<Server> Servers { get; set; } = Enumerable.Range(1, 10)

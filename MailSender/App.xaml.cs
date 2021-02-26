@@ -31,8 +31,8 @@ namespace MailSender
         private static void ServicesConfiguration(HostBuilderContext host, IServiceCollection services)
         {
             services.AddSingleton<MainWindowViewModel>();
-
             services.AddSingleton<IStatistic, InMemoryStatisticService>();
+            services.AddTransient<IMailService, SmtpMailService>();
         }        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using MailSender.Commands;
 using MailSender.Data;
+using MailSender.Infrastructure.Interfaces;
 using MailSender.Models;
 using MailSender.ViewModels.Base;
 using System;
@@ -16,6 +17,13 @@ namespace MailSender.ViewModels
     class MainWindowViewModel : ViewModel
     {
         private string __DataFileName = "";
+
+        private readonly IMailService _MailService;
+        
+        public MainWindowViewModel(IMailService mailService)
+        {
+            _MailService = mailService;
+        } 
 
         #region Title
         private string _title = "Рассыльщик";
@@ -56,6 +64,39 @@ namespace MailSender.ViewModels
             get => _Messages;
             set => Set(ref _Messages, value);
         }
+
+        #endregion
+
+        #region Свойства
+
+        private Server _SelectedServer;
+        public Server SelectedServer
+        {
+            get => _SelectedServer;
+            set => Set(ref _SelectedServer, value);
+        }
+
+        private Sender _SelectedSender;
+        public Sender SelectedSender
+        {
+            get => _SelectedSender;
+            set => Set(ref _SelectedSender, value);
+        }
+
+        private Recipient _SelectedRecipient;
+        public Recipient SelectedRecipient
+        {
+            get => _SelectedRecipient;
+            set => Set(ref _SelectedRecipient, value);
+        }
+
+        private Message _SelectedMessage;
+        public Message SelectedMessage
+        {
+            get => _SelectedMessage;
+            set => Set(ref _SelectedMessage, value);
+        }
+
 
         #endregion
 

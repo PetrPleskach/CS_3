@@ -84,10 +84,10 @@
                                        MinWidth="110"
                                        VerticalAlignment="Center"/>
 
-                            <ComboBox x:Name="ServerBox"
-                                      SelectedIndex="0" 
+                            <ComboBox x:Name="ServerBox"                                       
                                       MinWidth="150"
                                       ItemsSource="{Binding Servers}" 
+                                      SelectedItem="{Binding SelectedServer}"
                                       ToolTip="{Binding Path=SelectedItem.Adress, RelativeSource={RelativeSource Self}}">
 
                                 <ComboBox.ItemTemplate>
@@ -102,8 +102,8 @@
                             </ComboBox>
 
                             <Button Style="{StaticResource addBtn}" Command="{Binding CreateServerCommand}"/>
-                            <Button Style="{StaticResource editBtn}" Command="{Binding EditServerCommand}"/>
-                            <Button Style="{StaticResource delBtn}" Command="{Binding DeleteServerCommand}"/>
+                            <Button Style="{StaticResource editBtn}" Command="{Binding EditServerCommand}"  CommandParameter="{Binding SelectedServer}"/>
+                            <Button Style="{StaticResource delBtn}" Command="{Binding DeleteServerCommand}"  CommandParameter="{Binding SelectedServer}"/>
                         </ToolBar>
 
                         <ToolBar Band="1"
@@ -113,10 +113,10 @@
                                        MinWidth="110"
                                        VerticalAlignment="Center"/>
 
-                            <ComboBox x:Name="SenderBox"
-                                      SelectedIndex="0"
+                            <ComboBox x:Name="SenderBox"                                      
                                       MinWidth="150"
                                       ItemsSource="{Binding Senders}"
+                                      SelectedItem="{Binding SelectedSender}"
                                       DisplayMemberPath="Name"
                                       ToolTip="{Binding Path=SelectedItem.Adress, RelativeSource={RelativeSource Self}}"/>
 
@@ -272,6 +272,7 @@
 
                         <ListBox x:Name="MessageList"
                                  ItemsSource="{Binding Messages}"
+                                 SelectedItem="{Binding SelectedMessage}"
                                  DisplayMemberPath="Subject"
                                  SelectedIndex="0"/>
                     </GroupBox>
