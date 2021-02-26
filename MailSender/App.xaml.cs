@@ -31,13 +31,20 @@ namespace MailSender
         private static void ServicesConfiguration(HostBuilderContext host, IServiceCollection services)
         {
             services.AddSingleton<MainWindowViewModel>();
-            services.AddSingleton<IStatistic, InMemoryStatisticService>();
+            services.AddSingleton<IStatistic, InMemoryStatisticService>();           
 
 #if DEBUG
             services.AddTransient<IMailService, DebugMailService>();
 #else
             services.AddTransient<IMailService, SmtpMailService>();
 #endif
-        }        
+
+            //Хранилища данных
+            var memoryStorage = new InMemoryDataStorage();
+            services.AddSingleton<IServersStorage>(memoryStorage);
+            services.AddSingleton<ISendersStorage>(memoryStorage);
+            services.AddSingleton<IRecipientsStorage>(memoryStorage);
+            services.AddSingleton<IMessagesStorage>(memoryStorage);
+        }
     }
 }

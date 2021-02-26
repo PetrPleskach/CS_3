@@ -16,13 +16,20 @@ namespace MailSender.ViewModels
 {
     class MainWindowViewModel : ViewModel
     {
-        private string __DataFileName = "";
-
         private readonly IMailService _MailService;
-        
-        public MainWindowViewModel(IMailService mailService)
+        private readonly IServersStorage _ServerStorage;
+        private readonly ISendersStorage _SendersStorage;
+        private readonly IRecipientsStorage _RecipientsStorage;
+        private readonly IMessagesStorage _MessagesStorage;
+
+
+        public MainWindowViewModel(IMailService mailService , IServersStorage ServerStorage, ISendersStorage SendersStorage, IRecipientsStorage RecipientsStorage, IMessagesStorage MessagesStorage)
         {
             _MailService = mailService;
+            _ServerStorage = ServerStorage;
+            _SendersStorage = SendersStorage;
+            _RecipientsStorage = RecipientsStorage;
+            _MessagesStorage = MessagesStorage;
         } 
 
         #region Title
@@ -107,27 +114,25 @@ namespace MailSender.ViewModels
         public ICommand LoadDataCommand => _LoadDataCommand ??= new LambdaCommand(OnLoadDataCommandExecuted);        
         private void OnLoadDataCommandExecuted(object obj)
         {
-            var data = File.Exists(__DataFileName) ? TestData.LoadFromXML(__DataFileName) : new TestData();  
+            _ServerStorage.Load();
+            _SendersStorage.Load();
+            _RecipientsStorage.Load();
+            _MessagesStorage.Load();
 
-            Servers = new(data.Servers);
-            Senders = new(data.Senders);
-            Recipients = new(data.Recipients);
-            Messages = new(data.Messages);
-        }        
+            Servers = new ObservableCollection<Server>(_ServerStorage.Items);
+            Senders = new ObservableCollection<Sender>(_SendersStorage.Items);
+            Recipients = new ObservableCollection<Recipient>(_RecipientsStorage.Items);
+            Messages = new ObservableCollection<Message>(_MessagesStorage.Items);
+        }
 
         private ICommand _SaveDataCommand;
         public ICommand SaveDataCommand => _SaveDataCommand ??= new LambdaCommand(OnSaveDataCommandExecuted);
         private void OnSaveDataCommandExecuted(object obj)
         {
-            var data = new TestData
-            {
-                Servers = Servers,
-                Senders = Senders,
-                Recipients = Recipients,
-                Messages = Messages
-            };
-
-            data.SaveToXML(__DataFileName ??= "SomeFileName");
+            _ServerStorage.SaveChanges();
+            _SendersStorage.SaveChanges();
+            _RecipientsStorage.SaveChanges();
+            _MessagesStorage.SaveChanges();
         }
         #endregion
 
@@ -174,6 +179,7 @@ namespace MailSender.ViewModels
                 Description = description
             };
 
+            _ServerStorage.Items.Add(server);
             Servers.Add(server);
         }
 
@@ -213,6 +219,7 @@ namespace MailSender.ViewModels
         {
             if (!(obj is Server server)) return;
 
+            _ServerStorage.Items.Remove(server);
             Servers.Remove(server);
         }
 
