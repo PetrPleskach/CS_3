@@ -101,9 +101,9 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
 
-                            <Button Style="{StaticResource addBtn}" Click="onAddServerButtonClick"/>
-                            <Button Style="{StaticResource editBtn}" Click="OnEditServerButtonClick"/>
-                            <Button Style="{StaticResource delBtn}" Click="OnDeleteServerButtonClick"/>
+                            <Button Style="{StaticResource addBtn}" Command="{Binding CreateServerCommand}"/>
+                            <Button Style="{StaticResource editBtn}" Command="{Binding EditServerCommand}"/>
+                            <Button Style="{StaticResource delBtn}" Command="{Binding DeleteServerCommand}"/>
                         </ToolBar>
 
                         <ToolBar Band="1"
@@ -144,9 +144,9 @@
                         </ToolBar>
 
                         <ToolBar Band="1" Header="Получатели">
-                            <Button Style="{StaticResource addBtn}"  Click="onAddRecipientButtonClick"/>
-                            <Button Style="{StaticResource editBtn}" Click="OnEditRecipientButtonClick"/>
-                            <Button Style="{StaticResource delBtn}" Click="OnDeleteRecipientButtonClick"/>
+                            <Button Style="{StaticResource addBtn}"  />
+                            <Button Style="{StaticResource editBtn}" />
+                            <Button Style="{StaticResource delBtn}" />
                         </ToolBar>
                     </ToolBarTray>
 
@@ -226,7 +226,7 @@
                                     </DockPanel>
                                 </Button>
                                 
-                                <Button Click="OnSendNowButtonClick">
+                                <Button>
                                     <DockPanel>
                                         <TextBlock Text="Отправить сейчас"/>
                                         <Label fa:Awesome.Content="Regular_PaperPlane"/>

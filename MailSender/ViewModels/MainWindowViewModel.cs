@@ -73,11 +73,10 @@ namespace MailSender.ViewModels
             Messages = new(data.Messages);
         }
 
-        //--------------------------------------------------------------------------------------------------//
+        //------------------------------------------------------------------------------------------------//
 
         private ICommand _SaveDataCommand;
         public ICommand SaveDataCommand => _SaveDataCommand ??= new LambdaCommand(OnSaveDataCommandExecuted);
-
         private void OnSaveDataCommandExecuted(object obj)
         {
             var data = new TestData
@@ -90,6 +89,73 @@ namespace MailSender.ViewModels
 
             data.SaveToXML(__DataFileName ??= "SomeFileName");
         }
+
+        #region Server Commands
+
+        private ICommand _CreateServerCommand;
+        public ICommand CreateServerCommand => _CreateServerCommand ??= new LambdaCommand(OnCreateServerCommandExecuted);
+        private void OnCreateServerCommandExecuted(object obj)
+        {
+            if (!ServerEditDialogWindow.Create(
+                out var name,
+                out var address,
+                out var port,
+                out var useSSL,
+                out string description)) return;
+
+            var server = new Server
+            {
+                Id = Servers.DefaultIfEmpty().Max(s => s?.Id ?? 0) + 1,
+                Name = name,
+                Adress = address,
+                Port = port,
+                UseSSL = useSSL,
+                Description = description
+            };
+
+            Servers.Add(server);
+        }
+
+        //-------------------------------------------------------------------//
+
+        private ICommand _EditServerCommand;
+        public ICommand EditServerCommand => _EditServerCommand ??= new LambdaCommand(OnEditServerCommandExecuted);
+        private void OnEditServerCommandExecuted(object obj)
+        {
+            if (!(obj is Server server)) return;
+
+            var name = server.Name;
+            var address = server.Adress;
+            var port = server.Port;
+            var useSSL = server.UseSSL;
+            var description = server.Description;
+
+            if (!ServerEditDialogWindow.ShowDialog("Редактирование сервера",
+                ref name,
+                ref address,
+                ref port,
+                ref useSSL,
+                ref description)) return;
+
+            server.Name = name;
+            server.Adress = address;
+            server.Port = port;
+            server.UseSSL = useSSL;
+            server.Description = description;
+        }
+
+        //------------------------------------------------------------------//
+
+        private ICommand _DeleteServerCommand;
+        public ICommand DeleteServerCommand => _DeleteServerCommand ??= new LambdaCommand(OnDeleteDataCommandExecuted);
+        private void OnDeleteDataCommandExecuted(object obj)
+        {
+            if (!(obj is Server server)) return;
+
+            Servers.Remove(server);
+        }
+
+        #endregion
 
         #endregion
     }

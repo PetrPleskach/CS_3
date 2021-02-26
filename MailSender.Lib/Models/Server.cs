@@ -1,4 +1,6 @@
-﻿namespace MailSender.Models
+﻿using System;
+
+namespace MailSender.Models
 {
     public class Server
     {
