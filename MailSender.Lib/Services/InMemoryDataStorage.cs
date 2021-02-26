@@ -13,7 +13,7 @@ namespace MailSender.Services
         public ICollection<Server> Servers { get; set; } = new List<Server>();
         public ICollection<Sender> Senders { get; set; } = new List<Sender>();
         public ICollection<Recipient> Recipients { get; set; } = new List<Recipient>();
-        public ICollection<Message> Messages { get; set; } = new List<Message();
+        public ICollection<Message> Messages { get; set; } = new List<Message>();
 
         ICollection<Server> IStorage<Server>.Items => Servers;
         ICollection<Sender> IStorage<Sender>.Items => Senders;
