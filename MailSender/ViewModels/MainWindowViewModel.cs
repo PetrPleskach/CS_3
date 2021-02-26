@@ -5,6 +5,7 @@ using MailSender.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace MailSender.ViewModels
 {
     class MainWindowViewModel : ViewModel
     {
+        private string __DataFileName = "";
+
         #region Title
         private string _title = "Рассыльщик";
 
@@ -56,15 +59,38 @@ namespace MailSender.ViewModels
 
         #endregion
 
-        private LambdaCommand _LoadDataCommand;
-        public ICommand LoadDataCommand => _LoadDataCommand ??= new LambdaCommand(onLoadDataCommandExecuted);
+        #region Команды
 
-        private void onLoadDataCommandExecuted(object obj)
+        private ICommand _LoadDataCommand; 
+        public ICommand LoadDataCommand => _LoadDataCommand ??= new LambdaCommand(OnLoadDataCommandExecuted);        
+        private void OnLoadDataCommandExecuted(object obj)
         {
-            Servers = new (TestData.Servers);
-            Senders = new (TestData.Senders);
-            Recipients = new(TestData.Recipients);
-            Messages = new(TestData.Messages);
+            var data = File.Exists(__DataFileName) ? TestData.LoadFromXML(__DataFileName) : new TestData();  
+
+            Servers = new(data.Servers);
+            Senders = new(data.Senders);
+            Recipients = new(data.Recipients);
+            Messages = new(data.Messages);
         }
+
+        //--------------------------------------------------------------------------------------------------//
+
+        private ICommand _SaveDataCommand;
+        public ICommand SaveDataCommand => _SaveDataCommand ??= new LambdaCommand(OnSaveDataCommandExecuted);
+
+        private void OnSaveDataCommandExecuted(object obj)
+        {
+            var data = new TestData
+            {
+                Servers = Servers,
+                Senders = Senders,
+                Recipients = Recipients,
+                Messages = Messages
+            };
+
+            data.SaveToXML(__DataFileName ??= "SomeFileName");
+        }
+
+        #endregion
     }
 }
