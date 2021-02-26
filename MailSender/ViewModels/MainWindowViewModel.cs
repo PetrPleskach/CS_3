@@ -102,6 +102,7 @@ namespace MailSender.ViewModels
 
         #region Команды
 
+        #region Загрузка/Сохранение данных
         private ICommand _LoadDataCommand; 
         public ICommand LoadDataCommand => _LoadDataCommand ??= new LambdaCommand(OnLoadDataCommandExecuted);        
         private void OnLoadDataCommandExecuted(object obj)
@@ -112,9 +113,7 @@ namespace MailSender.ViewModels
             Senders = new(data.Senders);
             Recipients = new(data.Recipients);
             Messages = new(data.Messages);
-        }
-
-        //------------------------------------------------------------------------------------------------//
+        }        
 
         private ICommand _SaveDataCommand;
         public ICommand SaveDataCommand => _SaveDataCommand ??= new LambdaCommand(OnSaveDataCommandExecuted);
@@ -129,6 +128,27 @@ namespace MailSender.ViewModels
             };
 
             data.SaveToXML(__DataFileName ??= "SomeFileName");
+        }
+        #endregion
+
+        private ICommand _SendMailMessageCommand;
+        public ICommand SendMailMessageCommand => _SendMailMessageCommand ??= new LambdaCommand(OnSendMailMessageCommandExecuted, CanSendMailMessageCommandExecute);
+
+        private bool CanSendMailMessageCommandExecute(object obj)
+        {
+            return SelectedServer != null && SelectedSender != null && SelectedRecipient != null && SelectedMessage != null;
+        }
+
+        private void OnSendMailMessageCommandExecuted(object obj)
+        {
+            var server = SelectedServer;
+            var sender = SelectedSender;
+            var recipient = SelectedRecipient;
+            var message = SelectedMessage;
+
+            var client = _MailService.GetSender(server.Adress, server.Port, server.UseSSL, sender.Adress, sender.Password);
+
+            client.Send(sender.Adress, recipient.Adress, message.Subject, message.Body);
         }
 
         #region Server Commands

@@ -17,7 +17,7 @@
     
     <!--загружаем данные во вьюмодель при загрузке окна-->
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="WindowLoaded">
+        <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadDataCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -159,7 +159,8 @@
                                   AlternatingRowBackground="LightGray" 
                                   AutoGenerateColumns="False"
                                   IsReadOnly="True"
-                                  ItemsSource="{Binding Recipients}">
+                                  ItemsSource="{Binding Recipients}"
+                                  SelectedItem="{Binding SelectedRecipient}">
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" MaxWidth="70"
@@ -226,7 +227,7 @@
                                     </DockPanel>
                                 </Button>
                                 
-                                <Button>
+                                <Button Command="{Binding SendMailMessageCommand}">
                                     <DockPanel>
                                         <TextBlock Text="Отправить сейчас"/>
                                         <Label fa:Awesome.Content="Regular_PaperPlane"/>

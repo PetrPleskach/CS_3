@@ -32,7 +32,12 @@ namespace MailSender
         {
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<IStatistic, InMemoryStatisticService>();
+
+#if DEBUG
+            services.AddTransient<IMailService, DebugMailService>();
+#else
             services.AddTransient<IMailService, SmtpMailService>();
+#endif
         }        
     }
 }
