@@ -147,6 +147,11 @@
                             <Button Style="{StaticResource editBtn}" />
                             <Button Style="{StaticResource delBtn}" />
                         </ToolBar>
+
+                        <ToolBar Band="2">
+                            <vc:ComboBoxWithAddEditDelButtons/>
+                        </ToolBar>
+                        
                     </ToolBarTray>
 
                     <vc:RecipientListView Grid.Row="1"/>

@@ -226,6 +226,6 @@ namespace MailSender.ViewModels
 
         #endregion
 
-        #endregion
+        #endregion        
     }
 }
