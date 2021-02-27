@@ -35,7 +35,7 @@
             </Style>
         </DockPanel.Resources>
             
-        <TextBlock Text="Почтовые сервера" MinWidth="120" VerticalAlignment="Center"/>
+        <TextBlock MinWidth="120" VerticalAlignment="Center"/>
 
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
             <Button Style="{StaticResource addBtn}" Command="{Binding CreateServerCommand}"/>

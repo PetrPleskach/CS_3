@@ -1,9 +1,5 @@
-﻿using System;
+﻿using MailSender.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MailSender.Models;
 
 namespace MailSender.Infrastructure.Interfaces
 {
@@ -12,7 +8,7 @@ namespace MailSender.Infrastructure.Interfaces
         ICollection<T> Items { get; }
 
         void Load();
-        void SaveChanges();        
+        void SaveChanges();
     }
 
     public interface IServersStorage : IStorage<Server> { }

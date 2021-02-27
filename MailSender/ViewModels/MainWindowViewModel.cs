@@ -1,15 +1,9 @@
 ﻿using MailSender.Commands;
-using MailSender.Data;
 using MailSender.Infrastructure.Interfaces;
 using MailSender.Models;
 using MailSender.ViewModels.Base;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MailSender.ViewModels
@@ -23,14 +17,14 @@ namespace MailSender.ViewModels
         private readonly IMessagesStorage _MessagesStorage;
 
 
-        public MainWindowViewModel(IMailService mailService , IServersStorage ServerStorage, ISendersStorage SendersStorage, IRecipientsStorage RecipientsStorage, IMessagesStorage MessagesStorage)
+        public MainWindowViewModel(IMailService mailService, IServersStorage ServerStorage, ISendersStorage SendersStorage, IRecipientsStorage RecipientsStorage, IMessagesStorage MessagesStorage)
         {
             _MailService = mailService;
             _ServerStorage = ServerStorage;
             _SendersStorage = SendersStorage;
             _RecipientsStorage = RecipientsStorage;
             _MessagesStorage = MessagesStorage;
-        } 
+        }
 
         #region Title
         private string _title = "Рассыльщик";
@@ -65,7 +59,7 @@ namespace MailSender.ViewModels
             set => Set(ref _Recipients, value);
         }
 
-        private ObservableCollection<Message> _Messages; 
+        private ObservableCollection<Message> _Messages;
         public ObservableCollection<Message> Messages
         {
             get => _Messages;
@@ -111,8 +105,8 @@ namespace MailSender.ViewModels
 
         #region Загрузка/Сохранение данных
 
-        private ICommand _LoadDataCommand; 
-        public ICommand LoadDataCommand => _LoadDataCommand ??= new LambdaCommand(OnLoadDataCommandExecuted);        
+        private ICommand _LoadDataCommand;
+        public ICommand LoadDataCommand => _LoadDataCommand ??= new LambdaCommand(OnLoadDataCommandExecuted);
         private void OnLoadDataCommandExecuted(object obj)
         {
             _ServerStorage.Load();
