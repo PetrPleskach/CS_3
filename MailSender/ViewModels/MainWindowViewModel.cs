@@ -110,6 +110,7 @@ namespace MailSender.ViewModels
         #region Команды
 
         #region Загрузка/Сохранение данных
+
         private ICommand _LoadDataCommand; 
         public ICommand LoadDataCommand => _LoadDataCommand ??= new LambdaCommand(OnLoadDataCommandExecuted);        
         private void OnLoadDataCommandExecuted(object obj)

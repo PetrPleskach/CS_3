@@ -6,10 +6,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MailSender"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
-        xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:data="clr-namespace:MailSender.Data"
+        xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"        
         xmlns:models="clr-namespace:MailSender.Models;assembly=MailSender.lib"
-        xmlns:vm="clr-namespace:MailSender.ViewModels"        
+        xmlns:vc="clr-namespace:MailSender.View.Controls"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800"
         ResizeMode="CanResizeWithGrip"
@@ -150,34 +149,7 @@
                         </ToolBar>
                     </ToolBarTray>
 
-                    <GroupBox Header="Список получателей">
-
-                        <DataGrid x:Name="RecipientList"
-                                  VerticalGridLinesBrush="Gray" 
-                                  GridLinesVisibility="Vertical"
-                                  HeadersVisibility="Column"
-                                  AlternatingRowBackground="LightGray" 
-                                  AutoGenerateColumns="False"
-                                  IsReadOnly="True"
-                                  ItemsSource="{Binding Recipients}"
-                                  SelectedItem="{Binding SelectedRecipient}">
-
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" MaxWidth="70"
-                                                    Binding="{Binding Path=Id}"/>
-
-                                <DataGridTextColumn Header="Имя" MinWidth="200"
-                                                    Binding="{Binding Path=Name}"/>
-
-                                <DataGridTextColumn Header="Адрес" MinWidth="150"
-                                                    Binding="{Binding Path=Adress}"/>
-
-                                <DataGridTextColumn Header="Комментарий" Width="*"
-                                                    Binding="{Binding Path=Description}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </GroupBox>
-
+                    <vc:RecipientListView Grid.Row="1"/>
 
                 </DockPanel>
             </TabItem>
