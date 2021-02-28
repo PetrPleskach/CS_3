@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace MailSender.Services
 {
-    internal class InMemoryStatisticService : IStatistic
+    public class InMemoryStatisticService : IStatistic
     {
+
     }
 }
