@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MailSender.View.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{Binding StatisticTabModel, Source={StaticResource Locator}}">
     <Border Margin="10" BorderThickness="2" BorderBrush="Gray" CornerRadius="8">
         <Grid Margin="5">
             <Grid.Resources>
@@ -34,16 +35,16 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Писем отправлено:"/>
-            <TextBlock Grid.Column="1" Grid.Row="0" Text="1213"/>
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding SentMailsCount}"/>
         
             <TextBlock Grid.Column="0" Grid.Row="1" Text="Отправителей в базе:"/>
-            <TextBlock Grid.Column="1" Grid.Row="1"/>
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SendersCount}"/>
 
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Получателей в базе:"/>
-            <TextBlock Grid.Column="1" Grid.Row="2"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding RecipientsCount}"/>
 
             <TextBlock Grid.Column="0" Grid.Row="3" Text="Продолжительность сеанса:"/>
-            <TextBlock Grid.Column="1" Grid.Row="3"/>
+            <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding UpTime}"/>
 
         </Grid>
     </Border>

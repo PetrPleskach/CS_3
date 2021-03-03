@@ -8,16 +8,16 @@ using System.Windows.Input;
 
 namespace MailSender.ViewModels
 {
-    class MainWindowViewModel : ViewModel
+    internal class MainWindowViewModel : ViewModel
     {
-        private readonly IMailService _MailService;
+        private readonly IMailService _MailService;        
         private readonly IServersStorage _ServerStorage;
         private readonly ISendersStorage _SendersStorage;
         private readonly IRecipientsStorage _RecipientsStorage;
         private readonly IMessagesStorage _MessagesStorage;
 
-
-        public MainWindowViewModel(IMailService mailService, IServersStorage ServerStorage, ISendersStorage SendersStorage, IRecipientsStorage RecipientsStorage, IMessagesStorage MessagesStorage)
+        public MainWindowViewModel(IMailService mailService, IServersStorage ServerStorage, ISendersStorage SendersStorage,
+            IRecipientsStorage RecipientsStorage, IMessagesStorage MessagesStorage)
         {
             _MailService = mailService;
             _ServerStorage = ServerStorage;
@@ -184,7 +184,7 @@ namespace MailSender.ViewModels
         public ICommand EditServerCommand => _EditServerCommand ??= new LambdaCommand(OnEditServerCommandExecuted);
         private void OnEditServerCommandExecuted(object obj)
         {
-            if (!(obj is Server server)) return;
+            if (obj is not Server server) return;
 
             var name = server.Name;
             var address = server.Adress;
@@ -212,7 +212,7 @@ namespace MailSender.ViewModels
         public ICommand DeleteServerCommand => _DeleteServerCommand ??= new LambdaCommand(OnDeleteDataCommandExecuted);
         private void OnDeleteDataCommandExecuted(object obj)
         {
-            if (!(obj is Server server)) return;
+            if (obj is not Server server) return;
 
             _ServerStorage.Items.Remove(server);
             Servers.Remove(server);
