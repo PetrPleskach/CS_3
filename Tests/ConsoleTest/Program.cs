@@ -1,34 +1,42 @@
 ﻿using System;
-using System.Net;
-using System.Net.Mail;
-using System.Security;
+using System.Threading;
 
 namespace ConsoleTest
 {
     class Program
     {
+        /// <summary>
+        /// Бегущая строка в заголовке
+        /// </summary>
+        private static void TitleTicker()
+        {
+            string str = "Hello World!      ";
+            int counter = 0;
+            while (true)
+            {
+                Console.Title = str.Substring(counter, str.Length - counter) + str.Substring(0, counter);
+                counter = (++counter != str.Length) ? counter : 0;
+                Thread.Sleep(200);
+            }
+        }
+
+        private static long Factorial(long x)
+        {
+            if (x != 0) return x * Factorial(x - 1);
+            return 1;
+        }
+
         static void Main(string[] args)
         {
-            MailAddress from = new("", "");
-            MailAddress to = new("");
-            MailMessage message = new(from, to);
-            
-            message.Subject = "Test";
-            message.Body = "Test message";            
+            new Thread(TitleTicker).Start();
 
-            SmtpClient client = new("smtp.mail.ru", 25);
+            while (true)
+            {
+                int a = int.Parse(Console.ReadLine());
+                long s = Factorial(a);
 
-            SecureString secureString = new();
-
-            
-
-            client.EnableSsl = true;
-            client.Credentials = new NetworkCredential { UserName = "", Password = "" };             
-
-            
-            client.Send(message);
-            Console.WriteLine("OK!");
-            Console.ReadLine();
+                Console.WriteLine(s.ToString());
+            }
         }
     }
 }
