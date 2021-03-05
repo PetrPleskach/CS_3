@@ -16,7 +16,7 @@ namespace ConsoleTest
             int counter = 0;
             while (true)
             {
-                Console.Title = str.Substring(counter, str.Length - counter) + str.Substring(0, counter);
+                Console.Title = str[counter..] + str.Substring(0, counter);
                 counter = (++counter != str.Length) ? counter : 0;
                 Thread.Sleep(200);
             }

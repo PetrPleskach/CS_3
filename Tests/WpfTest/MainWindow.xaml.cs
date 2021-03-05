@@ -1,6 +1,8 @@
 ﻿using MailSender.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -23,29 +25,50 @@ namespace WpfTest
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        public MainWindow()
+        public MainWindow() => InitializeComponent();
+
+        private async void LoadButton_Click(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
+            var openDialog = new OpenFileDialog
+            {
+                Title = "Открыть CSV-файл",
+                Filter = "Csv файлы (*.csv)|*.csv|Все файлы (*.*)|*.*",
+                InitialDirectory = Environment.CurrentDirectory
+            };
+
+            if (openDialog.ShowDialog() == false) return;
+            
+            string fileName = openDialog.FileName;
+            if (File.Exists(fileName) == false) return;
+
+
+
+            var button = sender as Button;
+            button.IsEnabled = false;
+            StatusTextBlock.Text = "";
+
+            var result = await Task.Run(() => LoadFile(fileName)).ConfigureAwait(true);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private List<string> LoadFile(string fileName)
+        {
+            return new List<string>();
             try
             {
-                using var message = CreateMessage(SenderMailBox.Text, RecipientMailBox.Text, SubjectTextBox.Text, BodyTextBox.Text);
-                MailSend(MailServerComboBox.SelectedItem as Server, message, PasswordBox.SecurePassword);
+                var list = File.ReadAllLines(fileName).Select(l => l.Split(';'));
             }
-            catch (SmtpException exp)
+            catch (Exception)
             {
-                MessageBox.Show($"{SenderMailBox.Text} - неверный пароль или почтового ящика не существует\n{exp.Message}", "Ошибка авторизации", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                throw;
             }
-            catch (Exception exp)
-            {
-                MessageBox.Show(exp.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            
         }
     }
 }
