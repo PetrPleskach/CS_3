@@ -1,12 +1,15 @@
-﻿using System;
+﻿using MailSender.Infrastructure.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MailSender.Services
 {
-    public class EmailSendService
+    public class SmtpSender : IMailSender
     {
         private readonly string _Address;
         private readonly int _Port;
@@ -14,7 +17,7 @@ namespace MailSender.Services
         private readonly string _Login;
         private readonly string _Password;
 
-        public EmailSendService(string adress, int port, bool useSsl, string login, string password)
+        public SmtpSender(string adress, int port, bool useSsl, string login, string password)
         {
             _Address = adress;
             _Port = port;
