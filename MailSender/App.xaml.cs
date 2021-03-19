@@ -5,11 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MailSender
@@ -31,7 +26,8 @@ namespace MailSender
         private static void ServicesConfiguration(HostBuilderContext host, IServiceCollection services)
         {
             services.AddSingleton<MainWindowViewModel>();
-            services.AddSingleton<IStatistic, InMemoryStatisticService>();           
+            services.AddSingleton<StatisticViewModel>();
+            services.AddSingleton<IStatistic, InMemoryStatisticService>();
 
 #if DEBUG
             services.AddTransient<IMailService, DebugMailService>();

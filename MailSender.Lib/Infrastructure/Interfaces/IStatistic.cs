@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MailSender.Infrastructure.Interfaces
 {
     public interface IStatistic
     {
+        int SendedMailCount { get; }
+        event EventHandler SendedMailCountChanged;
 
+        void MailSended();
+
+        int SendersCount { get; }
+        int RecipientsCount { get; }
+        public TimeSpan UpTime { get; }
     }
 }

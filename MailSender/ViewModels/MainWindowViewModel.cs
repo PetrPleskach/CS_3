@@ -1,36 +1,30 @@
 ﻿using MailSender.Commands;
-using MailSender.Data;
 using MailSender.Infrastructure.Interfaces;
 using MailSender.Models;
 using MailSender.ViewModels.Base;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MailSender.ViewModels
 {
-    class MainWindowViewModel : ViewModel
+    internal class MainWindowViewModel : ViewModel
     {
-        private readonly IMailService _MailService;
+        private readonly IMailService _MailService;        
         private readonly IServersStorage _ServerStorage;
         private readonly ISendersStorage _SendersStorage;
         private readonly IRecipientsStorage _RecipientsStorage;
         private readonly IMessagesStorage _MessagesStorage;
 
-
-        public MainWindowViewModel(IMailService mailService , IServersStorage ServerStorage, ISendersStorage SendersStorage, IRecipientsStorage RecipientsStorage, IMessagesStorage MessagesStorage)
+        public MainWindowViewModel(IMailService mailService, IServersStorage ServerStorage, ISendersStorage SendersStorage,
+            IRecipientsStorage RecipientsStorage, IMessagesStorage MessagesStorage)
         {
             _MailService = mailService;
             _ServerStorage = ServerStorage;
             _SendersStorage = SendersStorage;
             _RecipientsStorage = RecipientsStorage;
             _MessagesStorage = MessagesStorage;
-        } 
+        }
 
         #region Title
         private string _title = "Рассыльщик";
@@ -65,7 +59,7 @@ namespace MailSender.ViewModels
             set => Set(ref _Recipients, value);
         }
 
-        private ObservableCollection<Message> _Messages; 
+        private ObservableCollection<Message> _Messages;
         public ObservableCollection<Message> Messages
         {
             get => _Messages;
@@ -110,8 +104,9 @@ namespace MailSender.ViewModels
         #region Команды
 
         #region Загрузка/Сохранение данных
-        private ICommand _LoadDataCommand; 
-        public ICommand LoadDataCommand => _LoadDataCommand ??= new LambdaCommand(OnLoadDataCommandExecuted);        
+
+        private ICommand _LoadDataCommand;
+        public ICommand LoadDataCommand => _LoadDataCommand ??= new LambdaCommand(OnLoadDataCommandExecuted);
         private void OnLoadDataCommandExecuted(object obj)
         {
             _ServerStorage.Load();
@@ -189,7 +184,7 @@ namespace MailSender.ViewModels
         public ICommand EditServerCommand => _EditServerCommand ??= new LambdaCommand(OnEditServerCommandExecuted);
         private void OnEditServerCommandExecuted(object obj)
         {
-            if (!(obj is Server server)) return;
+            if (obj is not Server server) return;
 
             var name = server.Name;
             var address = server.Adress;
@@ -217,7 +212,7 @@ namespace MailSender.ViewModels
         public ICommand DeleteServerCommand => _DeleteServerCommand ??= new LambdaCommand(OnDeleteDataCommandExecuted);
         private void OnDeleteDataCommandExecuted(object obj)
         {
-            if (!(obj is Server server)) return;
+            if (obj is not Server server) return;
 
             _ServerStorage.Items.Remove(server);
             Servers.Remove(server);
@@ -225,6 +220,6 @@ namespace MailSender.ViewModels
 
         #endregion
 
-        #endregion
+        #endregion        
     }
 }

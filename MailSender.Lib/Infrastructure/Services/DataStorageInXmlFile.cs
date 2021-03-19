@@ -1,11 +1,7 @@
 ﻿using MailSender.Infrastructure.Interfaces;
 using MailSender.Models;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace MailSender.Services
@@ -27,7 +23,7 @@ namespace MailSender.Services
         private readonly string _FileName;
         private DataStructure data = new();
 
-        public DataStorageInXmlFile(string fileName) => _FileName = fileName;        
+        public DataStorageInXmlFile(string fileName) => _FileName = fileName;
 
         ICollection<Server> IStorage<Server>.Items => data.Servers;
         ICollection<Sender> IStorage<Sender>.Items => data.Senders;
