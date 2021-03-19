@@ -22,7 +22,7 @@
         <GroupBox Header="Статус" Padding="5">
             <StackPanel>
                 <TextBlock x:Name="StatusTextBlock" MinWidth="150" Margin="0,5"/>
-                <ProgressBar x:Name="StatusProgressBar" MinHeight="15" Value="33"/>
+                <ProgressBar x:Name="StatusProgressBar" MinHeight="15" Minimum="0" Maximum="100"/>
             </StackPanel>
         </GroupBox>
 

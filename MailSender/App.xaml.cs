@@ -28,6 +28,7 @@ namespace MailSender
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<StatisticViewModel>();
             services.AddSingleton<IStatistic, InMemoryStatisticService>();
+            services.AddSingleton<InMemoryDataStorage>();
 
 #if DEBUG
             services.AddTransient<IMailService, DebugMailService>();

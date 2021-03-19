@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -18,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfTest.Data;
 using static WpfTest.Services.EmailSendServiceClass;
 
 namespace WpfTest
@@ -28,6 +30,8 @@ namespace WpfTest
     public partial class MainWindow
     {
         public MainWindow() => InitializeComponent();
+
+        List<string> result;
 
         private async void LoadButton_Click(object sender, RoutedEventArgs e)
         {
@@ -43,31 +47,63 @@ namespace WpfTest
             string fileName = openDialog.FileName;
             if (File.Exists(fileName) == false) return;
 
+            result = await Task.Run(() => LoadFile(fileName)).ConfigureAwait(true);
 
-
-            var button = sender as Button;
-            button.IsEnabled = false;
-            StatusTextBlock.Text = "";
-
-            var result = await Task.Run(() => LoadFile(fileName)).ConfigureAwait(true);
+            StatusTextBlock.Text = "Done!";
+            LoadButton.IsEnabled = false;
+            SaveButton.IsEnabled = true;
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            var saveDialog = new SaveFileDialog
+            {
+                Title = "Сохранить как TXT-файл",
+                Filter = "Txt файлы (*.txt)|*.txt|Все файлы (*.*)|*.*",
+                InitialDirectory = Environment.CurrentDirectory,
+                OverwritePrompt = true,
+            };
 
+            if (saveDialog.ShowDialog() == false) return;
+
+            string fileName = saveDialog.FileName;
+
+            await Task.Run(() => SaveFile(fileName, result)).ConfigureAwait(true);
+
+            SaveButton.IsEnabled = false;
+            LoadButton.IsEnabled = true;
         }
 
-        private List<string> LoadFile(string fileName)
+        private static List<string> LoadFile(string fileName)
         {
-            return new List<string>();
+            var strings = new List<string>();
             try
             {
-                var list = File.ReadAllLines(fileName).Select(l => l.Split(';'));
+                var list = File.ReadAllLines(fileName);
+                foreach (var str in list)
+                    strings.Add(str);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message);
+            }
 
-                throw;
+            return strings;
+        }
+
+        private static void SaveFile(string fileName, List<string> dataToSave)
+        {
+            try
+            {
+                using var writer = new StreamWriter(fileName);
+                foreach (var item in dataToSave)
+                {
+                    writer.WriteLine(item);
+                }                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);                
             }
         }
     }
