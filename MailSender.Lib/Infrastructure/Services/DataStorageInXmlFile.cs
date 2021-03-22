@@ -22,6 +22,7 @@ namespace MailSender.Services
 
         private readonly string _FileName;
         private DataStructure data = new();
+        private static XmlSerializer __Serializer = new(typeof(DataStructure));
 
         public DataStorageInXmlFile(string fileName) => _FileName = fileName;
 
@@ -37,17 +38,14 @@ namespace MailSender.Services
 
             using var file = File.OpenText(_FileName);
             if (file.BaseStream.Length == 0) return;
-
-            var serializer = new XmlSerializer(typeof(DataStructure));
-            data = serializer.Deserialize(file) as DataStructure;
+            
+            data = __Serializer.Deserialize(file) as DataStructure;
         }
 
         public void SaveChanges()
         {
-            using var file = File.CreateText(_FileName);
-            var serializer = new XmlSerializer(typeof(DataStructure));
-            serializer.Serialize(file, data);
+            using var file = File.CreateText(_FileName);            
+            __Serializer.Serialize(file, data);
         }
-
     }
 }

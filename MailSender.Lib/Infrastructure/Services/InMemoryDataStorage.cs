@@ -8,6 +8,11 @@ namespace MailSender.Services
 {
     public class InMemoryDataStorage : IServersStorage, ISendersStorage, IRecipientsStorage, IMessagesStorage
     {
+        public InMemoryDataStorage()
+        {
+            Load();
+        }
+
         public ICollection<Server> Servers { get; set; } = new List<Server>();
         public ICollection<Sender> Senders { get; set; } = new List<Sender>();
         public ICollection<Recipient> Recipients { get; set; } = new List<Recipient>();
@@ -15,7 +20,7 @@ namespace MailSender.Services
 
         ICollection<Server> IStorage<Server>.Items => Servers;
         ICollection<Sender> IStorage<Sender>.Items => Senders;
-        ICollection<Recipient> IStorage<Recipient>.Items => Recipients;
+        ICollection<Recipient> IStorage<Recipient>.Items => Recipients; 
         ICollection<Message> IStorage<Message>.Items => Messages;
 
         public void Load()

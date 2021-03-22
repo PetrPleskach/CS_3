@@ -7,45 +7,29 @@
         xmlns:data="clr-namespace:WpfTest.Data"
         mc:Ignorable="d"        
         Background="{StaticResource WindowBackgroundBrush}"        
-        Title="MainWindow" Height="450" Width="800">
+        Title="Преобразователь из CSV в TXT" Height="300" Width="500">
     <Grid>
-        
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
-        <GroupBox Grid.Column="0" VerticalAlignment="Top" Padding="10" Header="Почтовый ящик для отправки" Margin="10">
-            <StackPanel>                
-                <GroupBox HorizontalAlignment="Center" Header="Выберите почтовый сервер">
-                    <ComboBox x:Name="MailServerComboBox" HorizontalAlignment="Center" Width="250" SelectedIndex="0" HorizontalContentAlignment="Center"
-                              ItemsSource="{x:Static data:TestData.Servers}"
-                              DisplayMemberPath="Name"/>
-                </GroupBox>
-                
-                <TextBlock HorizontalAlignment="Center" Text="Введите e-mail" />
-                <TextBox x:Name="SenderMailBox" VerticalAlignment="Top" HorizontalAlignment="Center" Width="250"/>
-                
-                <TextBlock HorizontalAlignment="Center" Text ="Введите пароль" TextAlignment="Center" Width="250"/>
-                <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Center" Width="250"/>
-                
-            </StackPanel>            
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Статус" Padding="5">
+            <StackPanel>
+                <TextBlock x:Name="StatusTextBlock" MinWidth="150" Margin="0,5"/>
+                <ProgressBar x:Name="StatusProgressBar" MinHeight="15" Minimum="0" Maximum="100"/>
+            </StackPanel>
         </GroupBox>
 
-        <StackPanel Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,50">
-            <TextBlock Text="Введите e-mail получателя:" TextAlignment="Center"/>
-            <TextBox x:Name="RecipientMailBox" Width="250"/>
+        <StackPanel Grid.Column="1">
+            <Button x:Name="LoadButton" Content="Загрузить CSV-файл" Click="LoadButton_Click"/>
+            <Button x:Name="SaveButton" Content="Преобразовать и сохранить" IsEnabled="False" Click="SaveButton_Click"/>
         </StackPanel>
-        
-        <GroupBox Grid.Column="1" VerticalAlignment="Top" Padding="10" Header="Письмо" Margin="10" Height="176">
-            <DockPanel>
-                <TextBlock DockPanel.Dock="Top" Text="Введите тему письма"/>
-                <TextBox  x:Name="SubjectTextBox" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="250"/>                
-                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Left" Text ="Введите текст письма" Width="250"/>
-                <TextBox x:Name="BodyTextBox" AcceptsReturn="True" AcceptsTab="True"/>                
-            </DockPanel>
-        </GroupBox>
 
-        <Button Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="250" Height="50" Content="Отправить!" Click="Button_Click" Margin="0,0,0,50"/>
     </Grid>
 </Window>
